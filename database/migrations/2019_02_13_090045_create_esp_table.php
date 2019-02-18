@@ -13,10 +13,11 @@ class CreateEspTable extends Migration
      */
     public function up()
     {
-        Schema::create('esp', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+        // Schema::create('esp', function (Blueprint $table) {
+        //     $table->increments('espno');
+        //     $table->integer('espname');
+        //     $table->timestamps();
+        // });
     }
 
     /**

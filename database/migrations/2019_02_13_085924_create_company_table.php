@@ -13,10 +13,14 @@ class CreateCompanyTable extends Migration
      */
     public function up()
     {
-        Schema::create('company', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+        // Schema::create('company', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->text('name')->nullable(false);
+        //     $table->integer('age')->nullable(false);
+        //     $table->text('address');
+        //     $table->double('salary');
+        //     $table->timestamps();
+        // });
     }
 
     /**

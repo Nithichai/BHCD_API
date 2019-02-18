@@ -14,7 +14,10 @@ class CreateDeviceTable extends Migration
     public function up()
     {
         Schema::create('device', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('espno');
+            $table->text('espname');
+            $table->text('password');
+            $table->text('deviceid');
             $table->timestamps();
         });
     }
