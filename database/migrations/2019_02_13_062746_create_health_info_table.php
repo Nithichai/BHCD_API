@@ -13,18 +13,18 @@ class CreateHealthInfoTable extends Migration
      */
     public function up()
     {   
-        if (Schema::hasTable('heallh_info')) {
-            // B.O.B do something!
-        } else {
-            Schema::create('health_info', function (Blueprint $table) {
-                $table->increments('healthinfo_id');
-                $table->string('esp_id');
-                $table->string('systolic');
-                $table->string('diastolic');
-                $table->string('heartrate');
-                $table->timestamps();
-            });
-        }
+        // if (Schema::hasTable('heallh_info')) {
+        //     // B.O.B do something!
+        // } else {
+        //     Schema::create('health_info', function (Blueprint $table) {
+        //         $table->increments('healthinfo_id');
+        //         $table->string('esp_id');
+        //         $table->string('systolic');
+        //         $table->string('diastolic');
+        //         $table->string('heartrate');
+        //         $table->timestamps();
+        //     });
+        // }
     }
 
     /**

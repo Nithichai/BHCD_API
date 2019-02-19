@@ -34,6 +34,6 @@ class CreateUserLineTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_line');
+        Schema::dropIfExists('userline');
     }
 }
