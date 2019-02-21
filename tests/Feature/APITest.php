@@ -6,47 +6,61 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/*-----------------------------------*/
+/* Please check data before test !!! */
+/*-----------------------------------*/
+
 class APITest extends TestCase
 {   
     // Create
 
-    public function createNewUserID()
+
+    public function createNewUserLine()
     {
-        $response = $this->json('POST', '/userid/new', ['id' => '', 'esp' => '']);
+        $response = $this->json('POST', '/user-line/new', [
+            'id' => "AhxRIsxTnVkpRWPogzyEuKMR0JvOYSXYZ", 
+            'esp' => "abcXpcwto9pk"
+        ]);
         $response
             ->assertStatus(201)
             ->assertJson([
-                'message' => 'User ID create completed',
+                'message' => 'User Line create completed',
                 'data' => [
-                    'id' => '', 
-                    'esp' => ''
+                    'id' => "AhxRIsxTnVkpRWPogzyEuKMR0JvOYSXYZ", 
+                    'esp' => "abcXpcwto9pk"
                 ]
             ]);
     }
 
-    public function notCreateNewUserID()
+
+    public function notCreateNewUserLine()
     {
-        $response = $this->json('POST', '/userid/new', ['failed' => 'failed']);
+        $response = $this->json('POST', '/user-line/new', ['failed' => 'failed']);
         $response
             ->assertStatus(400)
             ->assertJson([
-                'message' => 'User ID create not completed'
+                'message' => 'User Line create not completed'
             ]);
     }
-
+    
+    
     public function createNewDevice() {
-        $response = $this->json('POST', '/userid/new', ['id' => 'xxx', 'esp' => '32']);
+        $response = $this->json('POST', '/device/new', [
+            'espname' => 'xxx', 
+            'deviceid' => 'xxx'
+        ]);
         $response
             ->assertStatus(201)
             ->assertJson([
                 'message' => 'Device create completed',
                 'data' => [
-                    'id' => '', 
-                    'esp' => ''
+                    'espname' => 'xxx', 
+                    'deviceid' => 'xxx'
                 ]
             ]);
     }
 
+    
     public function notCreateNewDevice() {
         $response = $this->json('POST', '/device/new', ['failed' => 'failed']);
         $response
@@ -56,53 +70,56 @@ class APITest extends TestCase
             ]);
     }
 
+
     public function createDeviceInfoOnlyID() {
-        $response = $this->json('POST', '/device-info/new', ['failed' => 'failed']);
+        $response = $this->json('POST', '/device-info/new/only-id', ['deviceid' => '123456789']);
         $response
             ->assertStatus(201)
             ->assertJson([
-                'message' => 'Device info create completed',
+                'message' => 'Device infomation create completed',
                 'data' => [
-                    'device_id' => ''
+                    'device_id' => '123456789'
                 ]
             ]);
     }
 
+
     public function notCreateDeviceInfoOnlyID() {
-        $response = $this->json('POST', '/device-info/new', ['failed' => 'failed']);
+        $response = $this->json('POST', '/device-info/new/only-id', ['failed' => 'failed']);
         $response
             ->assertStatus(400)
             ->assertJson([
-                'message' => 'Device info not create completed'
+                'message' => 'Device infomation not create completed'
             ]);
     }
 
     // Read
 
-
-    public function foundUserInfo()
+    
+    public function foundUserInfoByID()
     {
-        $response = $this->json('POST', '/userid/check', ['id' => '']);
+        $response = $this->json('POST', '/user-info/check/id', ['id' => "gJba2SmyQzY6G2puBkJ923USperdLjato"]);
         $response
             ->assertStatus(200)
             ->assertJson([
                 'message' => 'Found user infomation',
                 'data' => [
-                    'user_no' => '',
-                    'id' => '',
-                    'firstname' => '',
-                    'lastname' => '',
-                    'phone' => '',
-                    'email' => '',
-                    'career' => '',
-                    'birthday' => ''
+                    'user_no' => '9',
+                    'id' => "gJba2SmyQzY6G2puBkJ923USperdLjato",
+                    'firstname' => "Thelma",
+                    'lastname' => "Crist",
+                    'phone' => "+7254117297100",
+                    'email' => "willms.ashtyn@yahoo.com",
+                    'career' => "Medical Technician",
+                    'birthday' => "1974-10-05"
                 ]
             ]);
     }
 
-    public function notFoundUserInfo()
+    
+    public function notFoundUserInfoByID()
     {
-        $response = $this->json('POST', '/userinfo/check', ['id' => '']);
+        $response = $this->json('POST', '/user-info/check/id', ['id' => 'ggez']);
         $response
             ->assertStatus(404)
             ->assertJson([
@@ -110,178 +127,185 @@ class APITest extends TestCase
             ]);
     }
 
-    public function errFoundUserInfo()
+    public function errFoundUserInfoByID()
     {
-        $response = $this->json('POST', '/userinfo/check', ['failed' => 'failed']);
+        $response = $this->json('POST', '/user-info/check/id', ['err' => 'err']);
         $response
-            ->assertStatus(400)
+            ->assertStatus(404)
             ->assertJson([
-                'message' => 'Error to find user information'
+                'message' => 'Not found user infomation'
             ]);
     }
 
-    public function foundUserIDByESP() {
-        $response = $this->json('POST', '/userid/check/esp', ['esp' => '']);
+    
+    public function foundUserLineByESP() {
+        $response = $this->json('POST', '/user-line/check/esp', ['esp' => "OkDfFLRLMfSr"]);
         $response
         ->assertStatus(200)
         ->assertJson([
-            'message' => 'Found user id',
+            'message' => 'Found user line',
             'data' => [
-                'user_no' => '',
-                'id' => '',
-                'esp' => ''
+                'id' => "6wS42A3WdCZnEONCcy92VpXK5H7RNHTNB",
+                'esp' => "OkDfFLRLMfSr"
             ]
         ]);
     }
 
-    public function notFoundUserIDByESP() {
-        $response = $this->json('POST', '/userid/check/esp', ['esp' => '']);
+
+    public function notFoundUserLineByESP() {
+        $response = $this->json('POST', '/user-line/check/esp', ['esp' => '']);
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Not found user id'
-        ]);
-    }
-
-    public function errFoundUserIDByESP() {
-        $response = $this->json('POST', '/userid/check/esp', ['failed' => 'failed']);
-        $response
-        ->assertStatus(400)
-        ->assertJson([
-            'message' => 'Error to find user id'
-        ]);
-    }
-
-    public function foundUserIDByIDESP() {
-        $response = $this->json('POST', '/userid/check/id-esp', ['id' => '', 'esp' => '']);
-        $response
-        ->assertStatus(200)
-        ->assertJson([
-            'message' => 'Found user id',
-            'data' => [
-                'user_no' => '',
-                'id' => '',
-                'esp' => ''
-            ]
-        ]);
-    }
-
-    public function notFoundUserIDByIDESP() {
-        $response = $this->json('POST', '/userid/check/id-esp', ['id' => '', 'esp' => '']);
-        $response
-        ->assertStatus(404)
-        ->assertJson([
-            'message' => 'Not found user id'
-        ]);
-    }
-
-    public function errFoundUserIDByIDESP() {
-        $response = $this->json('POST', '/userid/check/id-esp', ['failed' => 'failed']);
-        $response
-        ->assertStatus(400)
-        ->assertJson([
-            'message' => 'Error to find user id'
-        ]);
-    }
-
-    public function foundDeviceESPName() {
-        $response = $this->json('POST', '/device/espname', ['espname' => '']);
-        $response
-        ->assertStatus(200)
-        ->assertJson([
-            'message' => 'Found device',
-            'data' => [
-                'espno' => '',
-                'espname' => '',
-                'password' => '',
-                'deviceid' => ''
-            ]
-        ]);
-    }
-
-    public function notFoundDeviceESPName() {
-        $response = $this->json('POST', '/device/espname', ['espname' => '']);
-        $response
-        ->assertStatus(400)
-        ->assertJson([
-            'message' => 'Not found device'
-        ]);
-    }
-
-    public function errFoundDeviceESPName() {
-        $response = $this->json('POST', '/device/espname', ['failed' => 'failed']);
-        $response
-        ->assertStatus(404)
-        ->assertJson([
-            'message' => 'Error to find device'
+            'message' => 'Not found user line'
         ]);
     }
     
-    public function foundDeviceID() {
-        $response = $this->json('POST', '/device/id', ['deviceid' => '']);
+
+    public function errFoundUserLineByESP() {
+        $response = $this->json('POST', '/user-line/check/esp', ['failed' => 'failed']);
+        $response
+        ->assertStatus(404)
+        ->assertJson([
+            'message' => 'Not found user line'
+        ]);
+    }
+
+    
+    public function foundUserLineByIDESP() {
+        $response = $this->json('POST', '/user-line/check/id-esp', ['id' => "6wS42A3WdCZnEONCcy92VpXK5H7RNHTNB", 'esp' => "OkDfFLRLMfSr"]);
+        $response
+        ->assertStatus(200)
+        ->assertJson([
+            'message' => 'Found user line',
+            'data' => [
+                'id' => "6wS42A3WdCZnEONCcy92VpXK5H7RNHTNB",
+                'esp' => "OkDfFLRLMfSr"
+            ]
+        ]);
+    }
+
+    
+    public function notFoundUserLineByIDESP() {
+        $response = $this->json('POST', '/user-line/check/id-esp', ['id' => 'failed', 'esp' => 'failed']);
+        $response
+        ->assertStatus(404)
+        ->assertJson([
+            'message' => 'Not found user line'
+        ]);
+    }
+
+    
+    public function errFoundUserLineByIDESP() {
+        $response = $this->json('POST', '/user-line/check/id-esp', ['failed' => 'failed']);
+        $response
+        ->assertStatus(404)
+        ->assertJson([
+            'message' => 'Not found user line'
+        ]);
+    }
+
+    
+    public function foundDeviceESPName() {
+        $response = $this->json('POST', '/device/check/espname', ['espname' => 'jB3hTJzFd6Mm']);
         $response
         ->assertStatus(200)
         ->assertJson([
             'message' => 'Found device',
             'data' => [
-                'espno' => '',
-                'espname' => '',
-                'password' => '',
-                'deviceid' => ''
+                'espname' => 'jB3hTJzFd6Mm',
+                'deviceid' => 'jB3hTJzFd6Mm'
             ]
         ]);
     }
 
-    public function notFoundDeviceID() {
-        $response = $this->json('POST', '/device/id', ['deviceid' => '']);
+    
+    public function notFoundDeviceESPName() {
+        $response = $this->json('POST', '/device/check/espname', ['espname' => 'ABC']);
         $response
-        ->assertStatus(400)
+        ->assertStatus(404)
         ->assertJson([
             'message' => 'Not found device'
         ]);
     }
 
-    public function errFoundDeviceID() {
-        $response = $this->json('POST', '/device/id', ['failed' => 'failed']);
+    
+    public function errFoundDeviceESPName() {
+        $response = $this->json('POST', '/device/check/espname', ['failed' => 'failed']);
         $response
         ->assertStatus(404)
         ->assertJson([
-            'message' => 'Error to find device'
+            'message' => 'Not found device'
+        ]);
+    }
+    
+
+    
+    public function foundDeviceDeviceID() {
+        $response = $this->json('POST', '/device/check/deviceid', ['deviceid' => "jB3hTJzFd6Mm"]);
+        $response
+        ->assertStatus(200)
+        ->assertJson([
+            'message' => 'Found device',
+            'data' => [
+                'espname' => 'jB3hTJzFd6Mm',
+                'deviceid' => 'jB3hTJzFd6Mm'
+            ]
+        ]);
+    }
+
+    
+    public function notFoundDeviceDeviceID() {
+        $response = $this->json('POST', '/device/check/deviceid', ['deviceid' => 'XYZ']);
+        $response
+        ->assertStatus(404)
+        ->assertJson([
+            'message' => 'Not found device'
+        ]);
+    }
+
+    
+    public function errFoundDeviceID() {
+        $response = $this->json('POST', '/device/check/deviceid', ['failed' => 'failed']);
+        $response
+        ->assertStatus(404)
+        ->assertJson([
+            'message' => 'Not found device'
         ]);
     }
 
     // Update
 
-    public function completeUpdateESP() {
-        $response = $this->json('POST', '/device/update', ['espname' => '']);
+
+
+    public function completeUpdateDeviceESPName() {
+        $response = $this->json('POST', '/device/update', ['espname' => "TQcHhzDlo7ee", 'password' => 'GGEZ']);
         $response
         ->assertStatus(200)
         ->assertJson([
-            'message' => 'Complete update device',
-            'data' => [
-                'espno' => '',
-                'espname' => '',
-                'password' => '',
-                'deviceid' => ''
-            ]
+            'message' => 'Device update complete'
         ]);
     }
 
-    public function notCompleteUpdateESP() {
+
+    public function notCompleteUpdateESPName() {
         $response = $this->json('POST', '/device/update', ['espname' => '']);
         $response
-        ->assertStatus(400)
+        ->assertStatus(404)
         ->assertJson([
-            'message' => 'Not complete update device'
+            'message' => 'Device update not complete'
         ]);
     }
 
     // Delete
 
-
+    
     public function completeUserLogout() {
-        $this->json('POST', '/logout', ['id' => '', 'esp' => '']);
-        $response = $this->json('POST', '/userid/check/id-esp', ['id' => '', 'esp' => '']);
+        $this->json('POST', '/user-line/new', [
+            'id' => "AhxRIsxTnVkpRWPogzyEuKMR0JvOYSXYZ", 
+            'esp' => "abcXpcwto9pk"
+        ]);
+        $response = $this->json('POST', '/logout', ['id' => "AhxRIsxTnVkpRWPogzyEuKMR0JvOYSXYZ", 'esp' => "abcXpcwto9pk"]);
         $response
         ->assertStatus(200)
         ->assertJson([
@@ -289,9 +313,9 @@ class APITest extends TestCase
         ]);
     }
 
+    
     public function notCompleteUserLogout() {
-        $this->json('POST', '/logout', ['id' => '', 'esp' => '']);
-        $response = $this->json('POST', '/userid/check/id-esp', ['id' => '', 'esp' => '']);
+        $response = $this->json('POST', '/logout', ['id' => "xxx", 'esp' => "uyyy"]);
         $response
         ->assertStatus(404)
         ->assertJson([
@@ -299,12 +323,13 @@ class APITest extends TestCase
         ]);
     }
 
+
     public function errCompleteUserLogout() {
-        $response = $this->json('POST', '/logout', ['failed' => '']);
+        $response = $this->json('POST', '/logout', ['failed' => 'zzz']);
         $response
-        ->assertStatus(400)
+        ->assertStatus(404)
         ->assertJson([
-            'message' => 'Logout error'
+            'message' => 'Logout not completed'
         ]);
     }
 }
