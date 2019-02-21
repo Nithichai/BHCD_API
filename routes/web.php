@@ -15,4 +15,13 @@
 //     return view('welcome');
 // });
 
-Route::post('/userid/new', 'UserIDController@newUser');
+Route::post('/user-line/new', 'UserLineController@createNewUserLine');
+Route::post('/device/new', 'DeviceController@createNewDevice');
+Route::post('/device-info/new/only-id', 'DeviceInfoController@createNewDeviceInfoOnlyID');
+Route::post('/user-info/check/id', 'UserInfoController@checkUserInfoByID');
+Route::post('/user-line/check/esp', 'UserLineController@checkUserLineByESP');
+Route::post('/user-line/check/id-esp', 'UserLineController@checkUserLineByIDESP');
+Route::post('/device/check/espname', 'DeviceController@checkDeviceByESPName');
+Route::post('/device/check/deviceid', 'DeviceController@checkDeviceByDeviceID');
+Route::post('/logout', 'UserLineController@deleteUserLineByIDESP');
+Route::post('/device/update', 'DeviceController@updateDeviceByESPName');
