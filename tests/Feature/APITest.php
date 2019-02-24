@@ -14,6 +14,57 @@ class APITest extends TestCase
 {   
     // Create
 
+    /** @test */
+    public function createNewUserInfo()
+    {
+        $response = $this->json('POST', '/user-info/new', [
+            "data" => [
+                'id' => 'id002',
+                'firstname' => 'first002',
+                'lastname' => 'last002',
+                'phone' => '+861231234',
+                'email' => 'email2@email.com',
+                'career' => 'Teacher',
+                'birthday' => '1999-09-09'
+            ]
+        ]);
+        $response
+            ->assertStatus(201)
+            ->assertJson([
+                'message' => 'User information create completed',
+                'data' => [
+                    'id' => 'id002',
+                    'firstname' => 'first002',
+                    'lastname' => 'last002',
+                    'phone' => '+861231234',
+                    'email' => 'email2@email.com',
+                    'career' => 'Teacher',
+                    'birthday' => '1999-09-09'
+                ]
+            ]);
+    }
+
+    /** @test */
+    public function notCreateNewUserInfo()
+    {
+        $response = $this->json('POST', '/user-info/new', [
+            "data" => [
+                'xxx' => 'id002',
+                'firstname' => 'first002',
+                'yyy' => 'last002',
+                'phone' => '+861231234',
+                'zzz' => 'email2@email.com',
+                'career' => 'Teacher',
+                'ggez' => '1999-09-09'
+            ]
+        ]);
+        $response
+            ->assertStatus(400)
+            ->assertJson([
+                'message' => 'User information create not completed',
+            ]);
+    }
+
 
     public function createNewUserLine()
     {

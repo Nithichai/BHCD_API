@@ -25,3 +25,4 @@ Route::post('/device/check/espname', 'DeviceController@checkDeviceByESPName');
 Route::post('/device/check/deviceid', 'DeviceController@checkDeviceByDeviceID');
 Route::post('/logout', 'UserLineController@deleteUserLineByIDESP');
 Route::post('/device/update', 'DeviceController@updateDeviceByESPName');
+Route::post('/user-info/new', 'UserInfoController@createNewUserInfo');
