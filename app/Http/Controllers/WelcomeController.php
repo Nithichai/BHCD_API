@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class WelcomeController extends Controller
 {
     public function welcome() {
-        return View::make('resources/views/welcome');
+        return view('welcome');
     }
 }
