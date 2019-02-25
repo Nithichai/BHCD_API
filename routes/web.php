@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'WelcomeController@welcome');
 Route::post('/user-line/new', 'UserLineController@createNewUserLine');
 Route::post('/device/new', 'DeviceController@createNewDevice');
 Route::post('/device-info/new/only-id', 'DeviceInfoController@createNewDeviceInfoOnlyID');
