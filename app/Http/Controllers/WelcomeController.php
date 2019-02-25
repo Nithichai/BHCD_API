@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class WelcomeController extends Controller
 {
     public function welcome() {
-        return view('/resources/views/welcome');
+        return View::make('resources/views/welcome');
     }
 }
