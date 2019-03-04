@@ -70,11 +70,28 @@ class UserLineController extends Controller
         if ($userLine) {
             $userLine->delete();
             return response()->json([
-                'message' => 'Logout completed'
+                'message' => 'Delete user line completed'
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Logout not completed'
+                'message' => 'Delete user line not completed'
+            ], 404);
+        }
+    }
+
+    public function deleteUserLineByID(Request $request) {
+        $userLineObj = new UserLine;
+        $userLine = $userLineObj
+            ->where('id', $request->input('data.id'))
+            ->first();
+        if ($userLine) {
+            $userLine->delete();
+            return response()->json([
+                'message' => 'Delete user line completed'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Delete user line not completed'
             ], 404);
         }
     }

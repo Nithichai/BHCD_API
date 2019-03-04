@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Device;
 use Illuminate\Http\Request;
-use \Illuminate\Database\QueryException;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 
 class DeviceController extends Controller
 {
     public function createNewDevice(Request $request) {
         try {
-            $device = new Device;
-            $device->espname = $request->input("data.espname");
-            $device->password = Hash::make(env("BHCD_PASSWORD"));
-            $device->deviceid = $request->input("data.deviceid");
-            $device->save();
+            $deviceObj = new Device;
+            $deviceObj->espname = $request->input("data.espname");
+            $deviceObj->password = Hash::make("Smarthelper");
+            $deviceObj->deviceid = $request->input("data.deviceid");
+
+            $deviceObj->save();
+            
             return response()->json([
                 'message' => 'Device create completed',
                 'data' => [

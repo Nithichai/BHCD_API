@@ -14,7 +14,6 @@ class APITest extends TestCase
 {   
     // Create
 
-    /** @test */
     public function createNewUserInfo()
     {
         $response = $this->json('POST', '/user-info/new', [
@@ -43,8 +42,8 @@ class APITest extends TestCase
                 ]
             ]);
     }
-
-    /** @test */
+    
+    
     public function notCreateNewUserInfo()
     {
         $response = $this->json('POST', '/user-info/new', [
@@ -97,16 +96,18 @@ class APITest extends TestCase
     
     public function createNewDevice() {
         $response = $this->json('POST', '/device/new', [
-            'espname' => 'xxx', 
-            'deviceid' => 'xxx'
+            'data' => [
+                'espname' => 'xxxxxxxxx', 
+                'deviceid' => 'xxxxxxxxx'
+            ]
         ]);
         $response
             ->assertStatus(201)
             ->assertJson([
                 'message' => 'Device create completed',
                 'data' => [
-                    'espname' => 'xxx', 
-                    'deviceid' => 'xxx'
+                    'espname' => 'xxxxxxxxx', 
+                    'deviceid' => 'xxxxxxxxx'
                 ]
             ]);
     }

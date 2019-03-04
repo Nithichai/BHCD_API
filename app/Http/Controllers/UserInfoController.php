@@ -10,15 +10,15 @@ class UserInfoController extends Controller
 {
     public function createNewUserInfo(Request $request) {
         try {
-            $userInfo = new UserInfo;
-            $userInfo->id = $request->input('data.id');
-            $userInfo->firstname = $request->input('data.firstname');
-            $userInfo->lastname = $request->input('data.lastname');
-            $userInfo->phone = $request->input('data.phone');
-            $userInfo->email = $request->input('data.email');
-            $userInfo->career = $request->input('data.career');
-            $userInfo->birthday = $request->input('data.birthday');
-            $userInfo->save();
+            $userInfoObj = new UserInfo;
+            $userInfoObj->id = $request->input('data.id');
+            $userInfoObj->firstname = $request->input('data.firstname');
+            $userInfoObj->lastname = $request->input('data.lastname');
+            $userInfoObj->phone = $request->input('data.phone');
+            $userInfoObj->email = $request->input('data.email');
+            $userInfoObj->career = $request->input('data.career');
+            $userInfoObj->birthday = $request->input('data.birthday');
+            $userInfoObj->save();
             return response()->json([
                 'message' => 'User information create completed',
                 'data' => $request->input('data')
@@ -41,6 +41,45 @@ class UserInfoController extends Controller
         } else {
             return response()->json([
                 'message' => 'Not found user infomation'
+            ], 404);
+        }
+    }
+
+    public function updateUserInfoByID(Request $request) {
+        try {
+            $userInfoObj = new UserInfo;
+            $userInfo = $userInfoObj->where('id', $request->input('data.id'))->first();
+            $userInfo->firstname = $request->input('data.firstname');
+            $userInfo->lastname = $request->input('data.lastname');
+            $userInfo->phone = $request->input('data.phone');
+            $userInfo->email = $request->input('data.email');
+            $userInfo->career = $request->input('data.career');
+            $userInfo->birthday = $request->input('data.birthday');
+            $userInfo->save();
+            return response()->json([
+                'message' => 'User information update completed',
+                'data' => $userInfo->toArray()
+            ], 200);
+        } catch (QueryException $e) {
+            return response()->json([
+                'message' => 'User information update not completed'
+            ], 400);
+        }
+    }
+
+    public function deleteUserInfoByID(Request $request) {
+        $userInfoObj = new UserInfo;
+        $userInfo = $userInfoObj
+            ->where('id', $request->input('data.id'))
+            ->first();
+        if ($userInfo) {
+            $userInfo->delete();
+            return response()->json([
+                'message' => 'Delete user info completed'
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Delete user info not completed'
             ], 404);
         }
     }

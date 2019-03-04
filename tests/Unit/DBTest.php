@@ -86,7 +86,7 @@ class DBTest extends TestCase
     public function checkDeviceHashPassword() {
         // $deviceObj = new Device;
         // $device = $deviceObj->where('espname', 'esp001')->first();
-        $this->assertTrue(Hash::check('lnwza007', '$2y$10$i1z0aTGTgePyeHzMKMBkd.JR8X0A0FVDRlm1zDrttG4yuwJomu5LS'));
+        $this->assertTrue(Hash::check('Smarthelper', '$2y$10$DzQSgajvisIUZtKmo9/PI.9FJwNQAW11RqD1vulOoOdHIL5FVWffq'));
     }
 
     
