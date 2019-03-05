@@ -10,4 +10,7 @@ class DeviceInfo extends Model
     
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'deviceid'
+    ];
 }

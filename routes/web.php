@@ -39,3 +39,6 @@ Route::post('/device-info/check/deviceid', 'DeviceInfoController@checkDeviceInfo
 Route::post('/device-info/list/deviceid-name', 'DeviceInfoController@listDeviceInfoDeviceIDName');
 Route::post('/device-info/update/id', 'DeviceInfoController@updateDeviceInfoByDeviceID');
 Route::post('/device-info/delete/id', 'DeviceInfoController@deleteDeviceInfoByDeviceID');
+
+Route::post('/health-info/new', 'HealthInfoController@createNewHealthInfo');
+Route::post('/health-info/check/id-esp', 'HealthInfoController@checkHealthInfoByIDESP');

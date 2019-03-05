@@ -13,14 +13,16 @@ class DeviceInfoController extends Controller
     public function createNewDeviceInfoOnlyID(Request $request) {
         $deviceObj = new Device;
         $device = $deviceObj
-            ->where('deviceid', $request->input("data.deviceid"))
+            ->where('deviceid', $request->input('data.deviceid'))
             ->first();
         if ($device) {
             if (Hash::check($request->input("data.password"), $device->password)) {
                 $deviceInfoObj = new DeviceInfo;
-                $deviceInfo = $deviceInfoObj->firstOrNew(['device_id' => $request->input("data.deviceid")]);
-                if (!$deviceInfo) {
-                    $deviceInfo->device_id = $request->input("data.deviceid");
+                $deviceInfo = $deviceInfoObj->firstOrNew([
+                    'deviceid' => $request->input("data.deviceid")
+                ]);
+                if (!$deviceInfo->exist) {
+                    $deviceInfo->deviceid = $request->input("data.deviceid");
                     $deviceInfo->save();
                     return response()->json([
                         'message' => 'Device information create completed',
@@ -31,7 +33,6 @@ class DeviceInfoController extends Controller
                         'message' => 'Device information is created'
                     ], 200);
                 }
-                
             } else {
                 return response()->json([
                     'message' => 'Password is not correct'
@@ -46,7 +47,7 @@ class DeviceInfoController extends Controller
 
     public function checkDeviceInfoByDeviceID(Request $request) {
         $deviceInfoObj = new DeviceInfo;
-        $deviceInfo = $deviceInfoObj->where('device_id', $request->input('data.deviceid'))->first();
+        $deviceInfo = $deviceInfoObj->where('deviceid', $request->input('data.deviceid'))->first();
         if ($deviceInfo) {
             return response()->json([
                 'message' => 'Found device information',
@@ -61,7 +62,7 @@ class DeviceInfoController extends Controller
 
     public function listDeviceInfoDeviceIDName(Request $request) {
         $deviceInfoObj = new DeviceInfo;
-        $deviceInfo = $deviceInfoObj->select('device_id as หมายเลข', 'name as ผู้ใช้งาน', 'device_id as แก้ไข')->get();
+        $deviceInfo = $deviceInfoObj->select('deviceid as หมายเลข', 'name as ผู้ใช้งาน', 'deviceid as แก้ไข')->get();
         if ($deviceInfo) {
             return response()->json([
                 'message' => 'List device information',
@@ -77,7 +78,7 @@ class DeviceInfoController extends Controller
     public function updateDeviceInfoByDeviceID(Request $request) {
         try {
             $deviceInfoObj = new DeviceInfo;
-            $deviceInfo = $deviceInfoObj->where('device_id', $request->input('data.deviceid'))->first();
+            $deviceInfo = $deviceInfoObj->where('deviceid', $request->input('data.deviceid'))->first();
             $deviceInfo->name = $request->input('data.name');
             $deviceInfo->sex = $request->input('data.sex');
             $deviceInfo->height = $request->input('data.height');
@@ -100,7 +101,7 @@ class DeviceInfoController extends Controller
 
     public function deleteDeviceInfoByDeviceID(Request $request) {
         $deviceInfoObj = new DeviceInfo;
-        $deviceInfo = $deviceInfoObj->where('device_id', $request->input('data.deviceid'))->first();
+        $deviceInfo = $deviceInfoObj->where('deviceid', $request->input('data.deviceid'))->first();
         if ($deviceInfo) {
             $deviceInfo->delete();
             return response()->json([

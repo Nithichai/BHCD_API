@@ -15,9 +15,7 @@ class DeviceController extends Controller
             $deviceObj->espname = $request->input("data.espname");
             $deviceObj->password = Hash::make("Smarthelper");
             $deviceObj->deviceid = $request->input("data.deviceid");
-
             $deviceObj->save();
-            
             return response()->json([
                 'message' => 'Device create completed',
                 'data' => [
