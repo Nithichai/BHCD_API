@@ -9,19 +9,20 @@ use \Illuminate\Database\QueryException;
 class UserLineController extends Controller
 {
     public function createNewUserLine(Request $request) {
-        try {
-            $userLine = new UserLine;
+        $userLineObj = new UserLine;
+        $userLine = $userLineObj->firstOrNew([
+            'id' => $request->input("data.id"),
+            'esp' => $request->input("data.esp")
+        ]);
+        if (!$userLine->exists) {
             $userLine->id = $request->input('data.id');
             $userLine->esp = $request->input('data.esp');
             $userLine->save();
             return response()->json([
                 'message' => 'User Line create completed',
-                'data' => [
-                    'id' => $request->input('data.id'), 
-                    'esp' => $request->input('data.esp')
-                ]
+                'data' => $userLine->toArray()
             ], 201);
-        } catch (QueryException $e) {
+        } else {
             return response()->json([
                 'message' => 'User Line create not completed'
             ], 400);
@@ -83,9 +84,9 @@ class UserLineController extends Controller
         $userLineObj = new UserLine;
         $userLine = $userLineObj
             ->where('id', $request->input('data.id'))
-            ->first();
-        if ($userLine) {
-            $userLine->delete();
+            ->get();
+        if (count($userLine) > 0) {
+            $userLineObj->where('id', $request->input('data.id'))->delete();
             return response()->json([
                 'message' => 'Delete user line completed'
             ], 200);

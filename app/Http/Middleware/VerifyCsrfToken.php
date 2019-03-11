@@ -23,6 +23,7 @@ class VerifyCsrfToken extends Middleware
         '/device/*',
         '/device-info/*',
         '/user-info/*',
-        '/health-info/*'
+        '/health-info/*',
+        '/user-line-device-info/*'
     ];
 }

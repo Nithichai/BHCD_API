@@ -21,7 +21,7 @@ class DeviceInfoController extends Controller
                 $deviceInfo = $deviceInfoObj->firstOrNew([
                     'deviceid' => $request->input("data.deviceid")
                 ]);
-                if (!$deviceInfo->exist) {
+                if (!$deviceInfo->exists) {
                     $deviceInfo->deviceid = $request->input("data.deviceid");
                     $deviceInfo->save();
                     return response()->json([
@@ -56,21 +56,6 @@ class DeviceInfoController extends Controller
         } else {
             return response()->json([
                 'message' => 'Not found device information'
-            ], 404);
-        }
-    }
-
-    public function listDeviceInfoDeviceIDName(Request $request) {
-        $deviceInfoObj = new DeviceInfo;
-        $deviceInfo = $deviceInfoObj->select('deviceid as หมายเลข', 'name as ผู้ใช้งาน', 'deviceid as แก้ไข')->get();
-        if ($deviceInfo) {
-            return response()->json([
-                'message' => 'List device information',
-                'data' => $deviceInfo->toArray()
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Cannnot list device information'
             ], 404);
         }
     }
