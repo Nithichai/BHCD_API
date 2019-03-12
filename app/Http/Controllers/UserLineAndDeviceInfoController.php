@@ -25,7 +25,7 @@ class UserLineAndDeviceInfoController extends Controller
         if (count($table) > 0) {
             return response()->json([
                 'message' => 'Found user line and device id',
-                'data' => $table->toArray()
+                'data' => $table[0]
             ], 200);
         } else {
             return response()->json([
@@ -44,7 +44,7 @@ class UserLineAndDeviceInfoController extends Controller
         if (count($table)) {
             return response()->json([
                 'message' => 'List device information',
-                'data' => $table->toArray()
+                'data' => $table
             ], 200);
         } else {
             return response()->json([
