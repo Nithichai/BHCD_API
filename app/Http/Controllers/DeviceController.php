@@ -10,20 +10,24 @@ use Illuminate\Support\Facades\Hash;
 class DeviceController extends Controller
 {
     public function createNewDevice(Request $request) {
-        try {
-            $deviceObj = new Device;
-            $deviceObj->espname = $request->input("data.espname");
-            $deviceObj->password = Hash::make("Smarthelper");
-            $deviceObj->deviceid = $request->input("data.deviceid");
-            $deviceObj->save();
+        $deviceObj = new Device;
+        $device = $deviceObj->firstOrNew([
+            'espname' => $request->input("data.espname"),
+            'deviceid' => $request->input("data.deviceid"),
+            'password' => Hash::make("Smarthelper")
+        ]);
+        if (!$device->exists) {
+            $device->id = $request->input('data.espname');
+            $device->esp = $request->input('data.deviceid');
+            $device->save();
             return response()->json([
-                'message' => 'Device create completed',
+                'message' => 'User Line create completed',
                 'data' => [
                     'espname' => $request->input("data.espname"), 
                     'deviceid' => $request->input("data.deviceid")
                 ]
             ], 201);
-        } catch (QueryException $e) {
+        } else {
             return response()->json([
                 'message' => 'Device create not completed'
             ], 400);
