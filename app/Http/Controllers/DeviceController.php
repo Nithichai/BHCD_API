@@ -17,8 +17,9 @@ class DeviceController extends Controller
             'password' => Hash::make("Smarthelper")
         ]);
         if (!$device->exists) {
-            $device->id = $request->input('data.espname');
-            $device->esp = $request->input('data.deviceid');
+            $device->espname = $request->input('data.espname');
+            $device->deviceid = $request->input('data.deviceid');
+            $device->password = Hash::make("Smarthelper");
             $device->save();
             return response()->json([
                 'message' => 'User Line create completed',
