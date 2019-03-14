@@ -11,4 +11,9 @@ class Device extends Model
     protected $primaryKey = 'espno';
 
     protected $hidden = ['password'];
+
+    protected $fillable = [
+        'espname',
+        'deviceid'
+    ];
 }
