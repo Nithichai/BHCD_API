@@ -10,7 +10,6 @@ class HealthInfoController extends Controller
     public function createNewHealthInfo(Request $request) {
         try {
             $healthInfoObj = new HealthInfo;
-            $healthInfoObj->id = $request->input("data.id");
             $healthInfoObj->esp = $request->input("data.esp");
             $healthInfoObj->hbp = $request->input("data.hbp");
             $healthInfoObj->lbp = $request->input("data.lbp");
@@ -19,7 +18,6 @@ class HealthInfoController extends Controller
             return response()->json([
                 'message' => 'Health info create completed',
                 'data' => [
-                    'id' => $request->input("data.id"), 
                     'esp' => $request->input("data.esp"),
                     'hbp' => $request->input("data.hbp"),
                     'lbp' => $request->input("data.lbp"),
@@ -33,22 +31,21 @@ class HealthInfoController extends Controller
         }
     }
 
-    public function checkHealthInfoByIDESP(Request $request) {
+    public function checkHealthInfoByESP(Request $request) {
         $hbpObj = new HealthInfo;
         $hbp = $hbpObj
             ->where('esp', $request->input('data.esp'))
-            ->where('id', $request->input('data.id'))
             ->latest()
             ->limit(10)
             ->get();
         if ($hbp) {
             return response()->json([
-                'message' => 'Found device',
+                'message' => 'Found data',
                 'data' => $hbp->toArray()
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Not found device'
+                'message' => 'Not found data'
             ], 404);
         }
     }
