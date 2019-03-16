@@ -11,14 +11,18 @@ class DeviceController extends Controller
 {
     public function createNewDevice(Request $request) {
         $deviceObj = new Device;
-        $device = $deviceObj->firstOrNew([
+        if ($device = $deviceObj->firstOrNew([
             'espname' => $request->input("data.espname"),
             'deviceid' => $request->input("data.deviceid"),
-        ]);
+        ])) {
+            return response()->json([
+                'message' => 'Device is created'
+            ], 200);
+        }
         $device->password = Hash::make("Smarthelper");
         $device->save();
         return response()->json([
-            'message' => 'User Line create completed',
+            'message' => 'Device create completed',
             'data' => [
                 'espname' => $request->input("data.espname"), 
                 'deviceid' => $request->input("data.deviceid")
