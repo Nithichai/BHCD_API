@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserLineAndDeviceInfoController extends Controller
 {
-    public function checkUserLineAndDeviceInfoByESP(Request $request) {
+    public function checkUserLineAndDeviceInfoByIDESP(Request $request) {
         $table = DB::table('userline')
                     ->join('device_infomation', 'userline.esp', '=',  'device_infomation.deviceid')
                     ->select('userline.id', 
@@ -21,6 +21,7 @@ class UserLineAndDeviceInfoController extends Controller
                                 'device_infomation.birthday',
                                 'device_infomation.address')
                     ->where('userline.esp', '=', $request->input("data.esp"))
+                    ->where('userline.id', '=', $request->input("data.id"))
                     ->get();
         if (count($table) > 0) {
             return response()->json([
