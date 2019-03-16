@@ -21,7 +21,7 @@ class DeviceInfoController extends Controller
                 $deviceInfo = $deviceInfoObj->firstOrNew([
                     'deviceid' => $request->input("data.deviceid")
                 ]);
-                if (!$deviceInfo->exists) {
+                if (!$deviceInfo) {
                     $deviceInfo->deviceid = $request->input("data.deviceid");
                     $deviceInfo->save();
                     return response()->json([

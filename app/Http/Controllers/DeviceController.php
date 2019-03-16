@@ -16,7 +16,7 @@ class DeviceController extends Controller
             'deviceid' => $request->input("data.deviceid"),
             'password' => Hash::make("Smarthelper")
         ]);
-        if (!$device->exists) {
+        if (!$device) {
             $device->espname = $request->input('data.espname');
             $device->deviceid = $request->input('data.deviceid');
             $device->password = Hash::make("Smarthelper");

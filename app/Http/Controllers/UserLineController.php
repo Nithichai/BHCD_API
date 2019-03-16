@@ -14,7 +14,7 @@ class UserLineController extends Controller
             'id' => $request->input("data.id"),
             'esp' => $request->input("data.esp")
         ]);
-        if (!$userLine->exists) {
+        if (!$userLine) {
             $userLine->id = $request->input('data.id');
             $userLine->esp = $request->input('data.esp');
             $userLine->save();
