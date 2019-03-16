@@ -14,25 +14,16 @@ class DeviceController extends Controller
         $device = $deviceObj->firstOrNew([
             'espname' => $request->input("data.espname"),
             'deviceid' => $request->input("data.deviceid"),
-            'password' => Hash::make("Smarthelper")
         ]);
-        if (!$device) {
-            $device->espname = $request->input('data.espname');
-            $device->deviceid = $request->input('data.deviceid');
-            $device->password = Hash::make("Smarthelper");
-            $device->save();
-            return response()->json([
-                'message' => 'User Line create completed',
-                'data' => [
-                    'espname' => $request->input("data.espname"), 
-                    'deviceid' => $request->input("data.deviceid")
-                ]
-            ], 201);
-        } else {
-            return response()->json([
-                'message' => 'Device create not completed'
-            ], 400);
-        }
+        $device->password = Hash::make("Smarthelper");
+        $device->save();
+        return response()->json([
+            'message' => 'User Line create completed',
+            'data' => [
+                'espname' => $request->input("data.espname"), 
+                'deviceid' => $request->input("data.deviceid")
+            ]
+        ], 201);
     }
 
     public function checkDeviceByESPName(Request $request) {
