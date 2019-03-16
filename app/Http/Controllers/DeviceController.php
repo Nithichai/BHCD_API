@@ -11,23 +11,24 @@ class DeviceController extends Controller
 {
     public function createNewDevice(Request $request) {
         $deviceObj = new Device;
-        if ($device = $deviceObj->firstOrNew([
-            'espname' => $request->input("data.espname"),
-            'deviceid' => $request->input("data.deviceid"),
-        ])) {
+        $device = $deviceObj
+            ->where('espname', '=', $request->input("data.espname"))
+            ->where('deviceid', '=' , $request->input("data.deviceid"))
+            ->get();
+        if (count($device) > 0) {
             return response()->json([
                 'message' => 'Device is created'
             ], 200);
+        } else {
+            $deviceObj = new Device;
+            $deviceObj->espname = $request->input("data.espname");
+            $deviceObj->deviceid = $request->input("data.deviceid");
+            $deviceObj->save();
+            return response()->json([
+                'message' => 'Device create completed',
+                'data' => $deviceObj->toArray()
+            ], 201);
         }
-        $device->password = Hash::make("Smarthelper");
-        $device->save();
-        return response()->json([
-            'message' => 'Device create completed',
-            'data' => [
-                'espname' => $request->input("data.espname"), 
-                'deviceid' => $request->input("data.deviceid")
-            ]
-        ], 201);
     }
 
     public function checkDeviceByESPName(Request $request) {
