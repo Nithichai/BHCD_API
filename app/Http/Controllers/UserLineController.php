@@ -10,22 +10,23 @@ class UserLineController extends Controller
 {
     public function createNewUserLine(Request $request) {
         $userLineObj = new UserLine;
-        $userLine = $userLineObj->firstOrNew([
-            'id' => $request->input("data.id"),
-            'esp' => $request->input("data.esp")
-        ]);
-        if (!$userLine->exists) {
-            $userLine->id = $request->input('data.id');
-            $userLine->esp = $request->input('data.esp');
-            $userLine->save();
-            return response()->json([
-                'message' => 'User Line create completed',
-                'data' => $userLine->toArray()
-            ], 201);
-        } else {
+        $userLine = $userLineObj
+            ->where('id', $request->input('data.id'))
+            ->where('esp', $request->input('data.esp'))
+            ->get();
+        if (count($userLine) > 0) {
             return response()->json([
                 'message' => 'User Line create not completed'
-            ], 400);
+            ], 200);
+        } else {
+            $userLineObj = new UserLine;
+            $userLineObj->id = $request->input('data.id');
+            $userLineObj->esp = $request->input('data.esp');
+            $userLineObj->save();
+            return response()->json([
+                'message' => 'User Line create completed',
+                'data' => $userLineObj->toArray()
+            ], 201);
         }
     }
 

@@ -14,24 +14,25 @@ class DeviceInfoController extends Controller
         $deviceObj = new Device;
         $device = $deviceObj
             ->where('deviceid', $request->input('data.deviceid'))
-            ->first();
-        if ($device) {
+            ->get();
+        if (count($device) > 0) {
             if (Hash::check($request->input("data.password"), $device->password)) {
                 $deviceInfoObj = new DeviceInfo;
-                $deviceInfo = $deviceInfoObj->firstOrNew([
-                    'deviceid' => $request->input("data.deviceid")
-                ]);
-                if (!$deviceInfo->exists) {
-                    $deviceInfo->deviceid = $request->input("data.deviceid");
-                    $deviceInfo->save();
-                    return response()->json([
-                        'message' => 'Device information create completed',
-                        'data' => $deviceInfo->toArray()
-                    ], 201);
-                } else {
+                $deviceInfo = $deviceInfoObj
+                    ->where('deviceid', '=' , $request->input("data.deviceid"))
+                    ->get();
+                if (count($deviceInfo) > 0) {
                     return response()->json([
                         'message' => 'Device information is created'
                     ], 200);
+                } else {
+                    $deviceInfoObj = new DeviceInfo;
+                    $deviceInfoObj->deviceid = $request->input("data.deviceid");
+                    $deviceInfoObj->save();
+                    return response()->json([
+                        'message' => 'Device information create completed',
+                        'data' => $deviceInfoObj->toArray()
+                    ], 201);
                 }
             } else {
                 return response()->json([
