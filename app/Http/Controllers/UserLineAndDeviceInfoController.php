@@ -21,7 +21,6 @@ class UserLineAndDeviceInfoController extends Controller
                                 'device_infomation.birthday',
                                 'device_infomation.address')
                     ->where('userline.esp', '=', $request->input("data.esp"))
-                    ->where('userline.id', '=', $request->input("data.id"))
                     ->get();
         if (count($table) > 0) {
             return response()->json([
