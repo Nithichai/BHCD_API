@@ -15,6 +15,7 @@ class CreateHealthInfoTable extends Migration
     {
         Schema::create('health_info', function (Blueprint $table) {
             $table->increments('no');
+            // $table->text('id');
             $table->text('esp');
             $table->integer('hbp');
             $table->integer('lbp');

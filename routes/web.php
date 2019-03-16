@@ -40,7 +40,7 @@ Route::post('/device-info/update/id', 'DeviceInfoController@updateDeviceInfoByDe
 Route::post('/device-info/delete/id', 'DeviceInfoController@deleteDeviceInfoByDeviceID');
 
 Route::post('/health-info/new', 'HealthInfoController@createNewHealthInfo');
-Route::post('/health-info/check/id-esp', 'HealthInfoController@checkHealthInfoByIDESP');
+Route::post('/health-info/check/id-esp', 'HealthInfoController@checkHealthInfoByESP');
 
 Route::post('/user-line-device-info/check/esp', 'UserLineAndDeviceInfoController@checkUserLineAndDeviceInfoByESP');
 Route::post('/user-line-device-info/list/id', 'UserLineAndDeviceInfoController@listDeviceInfoByID');

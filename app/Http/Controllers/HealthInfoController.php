@@ -31,11 +31,11 @@ class HealthInfoController extends Controller
         }
     }
 
-    public function checkHealthInfoByIDESP(Request $request) {
+    public function checkHealthInfoByESP(Request $request) {
         $hbpObj = new HealthInfo;
         $hbp = $hbpObj
             ->where('esp', $request->input('data.esp'))
-            ->where('id', $request->input('data.id'))
+            // ->where('id', $request->input('data.id'))
             ->latest()
             ->limit(10)
             ->get();
