@@ -16,7 +16,7 @@ class UserLineController extends Controller
             ->get();
         if (count($userLine) > 0) {
             return response()->json([
-                'message' => 'User Line create not completed'
+                'message' => 'User Line is created'
             ], 200);
         } else {
             $userLineObj = new UserLine;

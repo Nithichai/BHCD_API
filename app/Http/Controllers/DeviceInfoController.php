@@ -16,7 +16,7 @@ class DeviceInfoController extends Controller
             ->where('deviceid', $request->input('data.deviceid'))
             ->get();
         if (count($device) > 0) {
-            if (Hash::check($request->input("data.password"), $device->password)) {
+            if (Hash::check($request->input("data.password"), $device[0]->password)) {
                 $deviceInfoObj = new DeviceInfo;
                 $deviceInfo = $deviceInfoObj
                     ->where('deviceid', '=' , $request->input("data.deviceid"))
