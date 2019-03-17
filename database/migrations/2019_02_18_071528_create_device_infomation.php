@@ -21,6 +21,7 @@ class CreateDeviceInfomation extends Migration
             $table->integer('height')->nullable(true);
             $table->integer('weight')->nullable(true);
             $table->text('disease')->nullable(true);
+            $table->text('address')->nullable(true);
             $table->text('phone')->nullable(true);
             $table->date('birthday')->nullable(true);
             $table->timestamps();
