@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHealthInfoTable extends Migration
+class CreateLoginTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateHealthInfoTable extends Migration
      */
     public function up()
     {
-        Schema::create('health_info', function (Blueprint $table) {
-            $table->increments('no');
-            $table->text('esp');
-            $table->integer('hbp');
-            $table->integer('lbp');
-            $table->integer('hr');
+        Schema::create('login', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('line_id');
+            $table->integer('bot_id');
+            $table->integer('name');
+            $table->integer('email');
+            $table->integer('pic_url');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateHealthInfoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('health_info');
+        Schema::dropIfExists('login');
     }
 }
