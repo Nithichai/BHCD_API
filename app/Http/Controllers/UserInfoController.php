@@ -9,7 +9,13 @@ use \Illuminate\Database\QueryException;
 class UserInfoController extends Controller
 {
     public function createNewUserInfo(Request $request) {
-        try {
+        $userInfoObj = new UserInfo;
+        $userInfo = $userInfoObj->where('id', $request->input('data.id'))->get();
+        if (count($userInfo) > 0) {
+            return response()->json([
+                'message' => 'User information is created'
+            ], 200);
+        } else {
             $userInfoObj = new UserInfo;
             $userInfoObj->id = $request->input('data.id');
             // $userInfoObj->firstname = $request->input('data.firstname');
@@ -25,10 +31,6 @@ class UserInfoController extends Controller
                 'message' => 'User information create completed',
                 'data' => $userInfoObj->toArray()
             ], 201);
-        } catch (QueryException $e) {
-            return response()->json([
-                'message' => 'User information create not completed'
-            ], 400);
         }
     }
 
