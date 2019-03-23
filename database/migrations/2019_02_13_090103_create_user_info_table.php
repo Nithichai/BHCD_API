@@ -16,12 +16,14 @@ class CreateUserInfoTable extends Migration
         Schema::create('user_info', function (Blueprint $table) {
             $table->increments('user_no');
             $table->text('id');
-            $table->text('firstname');
-            $table->text('lastname');
-            $table->text('phone');
-            $table->text('email');
-            $table->text('career');
-            $table->date('birthday');
+            $table->text('firstname')->nullable(true);
+            $table->text('lastname')->nullable(true);
+            $table->text('phone')->nullable(true);
+            $table->text('email')->nullable(true);
+            $table->text('career')->nullable(true);
+            $table->date('birthday')->nullable(true);
+            $table->text('displayName')->nullable(true);
+            $table->text('pic')->nullable(true);
             $table->timestamps();
         });
     }

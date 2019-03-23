@@ -10,4 +10,8 @@ class UserInfo extends Model
 
     protected $primaryKey = 'user_no';
 
+    protected $fillable = [
+        'id', 'email', 'displayName', 'pic'
+    ];
+
 }

@@ -12,16 +12,18 @@ class UserInfoController extends Controller
         try {
             $userInfoObj = new UserInfo;
             $userInfoObj->id = $request->input('data.id');
-            $userInfoObj->firstname = $request->input('data.firstname');
-            $userInfoObj->lastname = $request->input('data.lastname');
-            $userInfoObj->phone = $request->input('data.phone');
+            // $userInfoObj->firstname = $request->input('data.firstname');
+            // $userInfoObj->lastname = $request->input('data.lastname');
+            // $userInfoObj->phone = $request->input('data.phone');
             $userInfoObj->email = $request->input('data.email');
-            $userInfoObj->career = $request->input('data.career');
-            $userInfoObj->birthday = $request->input('data.birthday');
+            // $userInfoObj->career = $request->input('data.career');
+            // $userInfoObj->birthday = $request->input('data.birthday');
+            $userInfoObj->displayName = $request->input('data.displayName');
+            $userInfoObj->pic = $request->input('data.pic');
             $userInfoObj->save();
             return response()->json([
                 'message' => 'User information create completed',
-                'data' => $request->input('data')
+                'data' => $userInfoObj->toArray()
             ], 201);
         } catch (QueryException $e) {
             return response()->json([
@@ -55,6 +57,8 @@ class UserInfoController extends Controller
             $userInfo->email = $request->input('data.email');
             $userInfo->career = $request->input('data.career');
             $userInfo->birthday = $request->input('data.birthday');
+            $userInfo->displayName = $request->input('data.displayName');
+            $userInfo->pic = $request->input('data.pic');
             $userInfo->save();
             return response()->json([
                 'message' => 'User information update completed',

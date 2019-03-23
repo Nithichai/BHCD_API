@@ -44,7 +44,3 @@ Route::post('/health-info/check/esp', 'HealthInfoController@checkHealthInfoByESP
 
 Route::post('/user-line-device-info/check/esp', 'UserLineAndDeviceInfoController@checkUserLineAndDeviceInfoByESP');
 Route::post('/user-line-device-info/list/id', 'UserLineAndDeviceInfoController@listDeviceInfoByID');
-
-Route::post('/login/new', 'LoginController@createNewLogin');
-Route::post('/login/check/line-id', 'LoginController@checkLoginByLineID');
-Route::post('/login/delete/line-id', 'LoginController@deleteLoginByLineID');
