@@ -13,7 +13,8 @@ class UserInfoController extends Controller
         $userInfo = $userInfoObj->where('id', $request->input('data.id'))->get();
         if (count($userInfo) > 0) {
             return response()->json([
-                'message' => 'User information is created'
+                'message' => 'User information is created',
+                'data' => $userInfo->first()->toArray()
             ], 200);
         } else {
             $userInfoObj = new UserInfo;
