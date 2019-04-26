@@ -42,5 +42,8 @@ Route::post('/device-info/delete/id', 'DeviceInfoController@deleteDeviceInfoByDe
 Route::post('/health-info/new', 'HealthInfoController@createNewHealthInfo');
 Route::post('/health-info/check/esp', 'HealthInfoController@checkHealthInfoByESP');
 
+Route::post('/health-info-oxi/new', 'HealthInfoOxiController@createNewHealthInfoOxi');
+Route::post('/health-info-oxi/check/esp', 'HealthInfoOxiController@checkHealthInfoOxiByESP');
+
 Route::post('/user-line-device-info/check/esp', 'UserLineAndDeviceInfoController@checkUserLineAndDeviceInfoByESP');
 Route::post('/user-line-device-info/list/id', 'UserLineAndDeviceInfoController@listDeviceInfoByID');

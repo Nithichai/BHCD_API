@@ -2,36 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\HealthInfo;
 use Illuminate\Http\Request;
 
-class HealthInfoController extends Controller
+class HealthInfoOxiController extends Controller
 {
-    public function createNewHealthInfo(Request $request) {
+    public function createNewHealthInfoOxi(Request $request) {
         try {
-            $healthInfoObj = new HealthInfo;
+            $healthInfoObj = new HealthInfoOxi;
             $healthInfoObj->esp = $request->input("data.esp");
-            $healthInfoObj->hbp = $request->input("data.hbp");
-            $healthInfoObj->lbp = $request->input("data.lbp");
-            $healthInfoObj->hr = $request->input("data.hr");
+            $healthInfoObj->spo2 = $request->input("data.spo2");
             $healthInfoObj->save();
             return response()->json([
-                'message' => 'Health info create completed',
+                'message' => 'Health info (oxi) create completed',
                 'data' => [
                     'esp' => $request->input("data.esp"),
-                    'hbp' => $request->input("data.hbp"),
-                    'lbp' => $request->input("data.lbp"),
-                    'hr' => $request->input("data.hr")
+                    'spo2' => $request->input("data.spo2")
                 ]
             ], 201);
         } catch (QueryException $e) {
             return response()->json([
-                'message' => 'Health info create not completed'
+                'message' => 'Health info (oxi) create not completed'
             ], 400);
         }
     }
 
-    public function checkHealthInfoByESP(Request $request) {
+    public function checkHealthInfoOxiByESP(Request $request) {
         $hbpObj = new HealthInfo;
         $hbp = $hbpObj
             ->where('esp', $request->input('data.esp'))
