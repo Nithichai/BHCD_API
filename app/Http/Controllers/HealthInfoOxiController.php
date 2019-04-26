@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\HealthInfoOxi;
 use Illuminate\Http\Request;
 
 class HealthInfoOxiController extends Controller
