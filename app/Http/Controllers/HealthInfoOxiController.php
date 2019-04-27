@@ -28,16 +28,16 @@ class HealthInfoOxiController extends Controller
     }
 
     public function checkHealthInfoOxiByESP(Request $request) {
-        $hbpObj = new HealthInfo;
-        $hbp = $hbpObj
+        $oxiObj = new HealthInfoOxi;
+        $oxi = $oxiObj
             ->where('esp', $request->input('data.esp'))
             ->latest()
             ->limit(20)
             ->get();
-        if ($hbp) {
+        if ($oxi) {
             return response()->json([
                 'message' => 'Found data',
-                'data' => $hbp->toArray()
+                'data' => $oxi->toArray()
             ], 200);
         } else {
             return response()->json([
